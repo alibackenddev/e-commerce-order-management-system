@@ -105,13 +105,13 @@ Supported Roles:
 
 ### User Orders
 
-| Method | Endpoint                 | Access |
-| ------ | ------------------------ | ------ |
-| GET    | `/api/user/orders`       | USER   |
-| GET    | `/api/user/orders/{id}`  | USER   |
-| POST   | `/api/orders`            | USER   |
-| PUT    | `/api/user/update/order` | USER   |
-| DELETE | `/api/user/orders/{id}`  | USER   |
+| Method | Endpoint                  | Access |
+| ------ |---------------------------| ------ |
+| GET    | `/api/orders/user`        | USER   |
+| GET    | `/api/orders/user/{id}`   | USER   |
+| POST   | `/api/orders`             | USER   |
+| PUT    | `/api/orders/user/update` | USER   |
+| DELETE | `/api/orders/user/{id}`   | USER   |
 
 ---
 

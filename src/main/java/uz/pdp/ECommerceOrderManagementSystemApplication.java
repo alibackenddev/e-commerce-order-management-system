@@ -8,6 +8,7 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springdoc.core.customizers.OpenApiCustomizer;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -156,4 +157,20 @@ public class ECommerceOrderManagementSystemApplication {
                 );
 
     }
+
+//    @Bean
+//    public GroupedOpenApi groupOrderOpenApi() {
+//        return GroupedOpenApi.builder()
+//                .group("Orders")
+//                .pathsToMatch("/api/orders/**")
+//                .build();
+//    }
+//
+//    @Bean
+//    public GroupedOpenApi groupProductOpenApi() {
+//        return GroupedOpenApi.builder()
+//                .group("Product")
+//                .pathsToMatch("/api/products/**")
+//                .build();
+//    }
 }

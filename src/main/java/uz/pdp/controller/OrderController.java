@@ -82,7 +82,7 @@ public class OrderController {
             )
 
     })
-    @GetMapping("/user/orders")
+    @GetMapping("/orders/user")
     public ResponseEntity<@NonNull List<OrderResponseDto>> findAllBelongUser() {
         return orderService.findAllOrderBelongUsers();
     }
@@ -134,7 +134,7 @@ public class OrderController {
             )
 
     })
-    @GetMapping("/user/orders/{id}")
+    @GetMapping("/orders/user/{id}")
     public ResponseEntity<@NonNull OrderResponseDto> findByIdBelongUser(
             @PathVariable(name = "id")
             @NotNull
@@ -248,7 +248,7 @@ public class OrderController {
             )
 
     })
-    @PutMapping("/user/update/order")
+    @PutMapping("/orders/user/update")
     public ResponseEntity<@NonNull String> update(
             //@RequestBody
             @Valid
@@ -298,7 +298,7 @@ public class OrderController {
             )
 
     })
-    @DeleteMapping("/user/orders/{id}")
+    @DeleteMapping("/orders/user/{id}")
     public ResponseEntity<@NonNull Void> delete(
             @PathVariable(name = "id")
             @NotNull
