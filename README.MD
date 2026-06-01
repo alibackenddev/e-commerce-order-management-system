@@ -2,6 +2,7 @@
 
 A RESTful API for managing products and customer orders in an e-commerce system. The application provides JWT-based authentication, role-based authorization, product management, and order management functionalities.
 
+![Swagger UI](images/swagger-ui.png)
 ---
 
 ## Features
@@ -12,7 +13,8 @@ A RESTful API for managing products and customer orders in an e-commerce system.
 * User Login
 * JWT Token Authentication
 * Role-Based Access Control (RBAC)
-
+  ![Swagger UI](images/authorize.png)
+---
 Supported Roles:
 
 * ADMIN
