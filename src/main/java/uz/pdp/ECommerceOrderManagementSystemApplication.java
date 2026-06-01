@@ -138,7 +138,7 @@ public class ECommerceOrderManagementSystemApplication {
                         .title("E-commerce Order Management System")
                         .contact(new Contact()
                                 .email("imomalirabbbimqulov@gmail.com")
-                                .url("")
+                                .url("https://github.com/alibackenddev")
                                 .name("Rabbimqulov Imomali")))
                 .servers(List.of(
                         new Server().url("http://localhost:8080").description("Test-Server"),
