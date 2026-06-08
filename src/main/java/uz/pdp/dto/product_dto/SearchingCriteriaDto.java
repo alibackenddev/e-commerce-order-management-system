@@ -23,9 +23,11 @@ public class SearchingCriteriaDto {
 
     @Parameter(description = "Nechanchii sahifa", example = "0")
     @Min(0)
-    private Integer page;
+    @Builder.Default
+    private Integer page = 0;
 
     @Parameter(description = "Sahifa o'lchami", example = "1")
     @Min(1)
-    private Integer size;
+    @Builder.Default
+    private Integer size = 3;
 }

@@ -89,17 +89,17 @@ Supported Roles:
 
 ### Products
 
-| Method | Endpoint                | Access         |
-| ------ | ----------------------- | -------------- |
-| GET    | `/api/products`         | All Users      |
-| GET    | `/api/products/all`     | All Users      |
-| GET    | `/api/products/get-all` | All Users      |
-| GET    | `/api/products/{id}`    | All Users      |
-| GET    | `/api/products/search`  | All Users      |
-| GET    | `/api/products/search2` | All Users      |
-| POST   | `/api/products`         | ADMIN, MANAGER |
-| PUT    | `/api/products/{id}`    | ADMIN, MANAGER |
-| DELETE | `/api/products/{id}`    | ADMIN, MANAGER |
+| Method | Endpoint                          | Access         |
+| ------ |-----------------------------------| -------------- |
+| GET    | `/api/products`                   | All Users      |
+| GET    | `/api/products/all`               | All Users      |
+| GET    | `/api/products/get-all`           | All Users      |
+| GET    | `/api/products/{id}`              | All Users      |
+| GET    | `/api/products/search`            | All Users      |
+| GET    | `/api/products/pagination_search` | All Users      |
+| POST   | `/api/products`                   | ADMIN, MANAGER |
+| PUT    | `/api/products/{id}`              | ADMIN, MANAGER |
+| DELETE | `/api/products/{id}`              | ADMIN, MANAGER |
 
 ---
 

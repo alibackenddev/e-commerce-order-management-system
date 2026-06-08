@@ -12,6 +12,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
@@ -286,11 +287,7 @@ public class ProductController {
 
             @RequestParam(name = "category", required = false)
             @ProductCategory
-            Category category
-//            ,@RequestParam(required = false)
-//            @PageableDefault(size = 10, page = 0, sort = {"id", "name"})
-//            Pageable pageable
-    ) {
+            Category category) {
 
 
         List<@NonNull ProductResponseDto> list = productService.find(name, category);
@@ -336,10 +333,9 @@ public class ProductController {
             )
 
     })
-    @GetMapping("/search2")
+    @GetMapping("/pagination_search")
     public ResponseEntity<@NonNull PageResponseDto> search2(
-            SearchingCriteriaDto dto) {
-
+            SearchingCriteriaDto dto) throws BadRequestException {
         PageResponseDto page = productService.search(dto);
         return ResponseEntity.ok().body(page);
     }

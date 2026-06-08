@@ -9,6 +9,8 @@ import java.util.Objects;
 public class CategoryValidator implements ConstraintValidator<ProductCategory, Category> {
     @Override
     public boolean isValid(Category category, ConstraintValidatorContext context) {
+        if (Objects.isNull(category))
+            return true;
         for (Category value : Category.values()) {
             if (Objects.equals(category, value)) {
                 return true;

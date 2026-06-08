@@ -28,17 +28,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-//        System.out.println("================================");
-//        Enumeration<String> names = request.getHeaderNames();
-//
-//        while (names.hasMoreElements()) {
-//            String name = names.nextElement();
-//            System.out.println(name + " = " + request.getHeader(name));
-//        }
-//        System.out.println("================================");
-
         String authorization = request.getHeader("Authorization");
-        System.out.println("authorization = " + authorization);
         if (authorization == null || authorization.isBlank()) {
             filterChain.doFilter(request, response);
             return;

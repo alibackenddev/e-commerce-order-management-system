@@ -5,6 +5,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.BadRequestException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,8 +71,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {
             ItemNotFoundException.class,
             OrderNotFoundException.class,
-            ProductNotFoundException.class}
-    )
+            ProductNotFoundException.class})
     public ResponseEntity<@NonNull ErrorDto> notFoundException(HttpServletRequest req, Exception e) {
         String message = e.getMessage();
         String error_path = req.getRequestURI();
@@ -89,7 +89,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {
             IllegalStateException.class,
             DataIntegrityViolationException.class,
-            InSufficientStockException.class})
+            InSufficientStockException.class,
+            BadRequestException.class})
     public ResponseEntity<@NonNull ErrorDto> badRequest(HttpServletRequest req, Exception e) {
         String message = e.getMessage();
         String error_path = req.getRequestURI();

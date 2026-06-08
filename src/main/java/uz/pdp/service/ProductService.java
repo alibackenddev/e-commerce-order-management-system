@@ -1,12 +1,17 @@
 package uz.pdp.service;
 
-import lombok.NonNull;
+
+
+import org.apache.coyote.BadRequestException;
+import org.jspecify.annotations.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import uz.pdp.controller.ProductSpecification;
 import uz.pdp.dto.page_dto.PageResponseDto;
 import uz.pdp.dto.page_dto.PageResponseDto2;
 import uz.pdp.dto.product_dto.ProductRequestDto;
@@ -90,14 +95,22 @@ public class ProductService {
     }
 
     public List<@NonNull ProductResponseDto> find(String name, Category category) {
-        List<@NonNull Product> products = productRepository.find(name, category.name());
+        Specification<@NonNull Product> specification = ProductSpecification.filter(name, category);
+        List<@NonNull Product> products = productRepository.findAll(specification);
         return customMapper.toProductResponseDtos(products);
     }
 
 
     public PageResponseDto search(SearchingCriteriaDto dto) {
-        Pageable pageable = PageRequest.of(dto.getPage(), dto.getSize(), Sort.by("id", "name").ascending());
-        Page<@NonNull Product> all = productRepository.findAll(pageable);
+        Pageable pageable = PageRequest.of(
+                dto.getPage(),
+                dto.getSize(),
+                Sort.by(Sort.Order.asc("id"),
+                        Sort.Order.asc("name")
+                )
+        );
+        Specification<@NonNull Product> spec = ProductSpecification.filter(dto.getName(), dto.getCategory());
+        Page<@NonNull Product> all = productRepository.findAll(spec, pageable);
         return customMapper.toResponse(all);
     }
 }

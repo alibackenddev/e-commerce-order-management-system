@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -101,7 +102,6 @@ public class SecurityConfig {
                                 ServletOutputStream outputStream = response.getOutputStream();
                                 objectMapper.writeValue(outputStream, error);
                                 log.error("Bad credentials", exception);
-                                System.out.println("-------------- UNAUTHORIZED ---------------");
                             }
                         });
                         httpSecurityExceptionHandlingConfigurer.accessDeniedHandler(new AccessDeniedHandler() {
@@ -118,7 +118,6 @@ public class SecurityConfig {
                                 ServletOutputStream outputStream = response.getOutputStream();
                                 objectMapper.writeValue(outputStream, error);
                                 log.error("Access denied", exception);
-                                System.out.println("--------------ACCESS DENIED--------------");
                             }
                         });
                     }
@@ -152,17 +151,24 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+    @Value("${app.cors.allowed-origins}")
+    private final List<String> allowedOrigins;
+
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(
-                List.of("http://localhost:8080",
-                        "http://localhost:9090",
-                        "http://localhost:9595")
-        );
+        configuration.setAllowedOriginPatterns(allowedOrigins);
+
+        configuration.setAllowCredentials(true); // JWT cookie uchun
+        /// Browser preflight natijasini 1 soat cache da saqlaydi:
+        configuration.setMaxAge(3600L);
+
+        /// OPTIONS — browser CORS so'rov yuborishdan oldin preflight tekshiruv qiladi.
+        /// Bu bo'lmasa ba'zi so'rovlar bloklanadi.
         configuration.setAllowedMethods(
                 // List.of("*"); // har qandey method
-                List.of("GET", "POST", "PUT", "DELETE"));
+                List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(
                 List.of("*")); // har qandey header
 //                List.of(

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uz.pdp.dto.order_dto.OrderItemsRequestDto;
 import uz.pdp.dto.order_dto.OrderRequestDto;
 import uz.pdp.dto.order_dto.OrderResponseDto;
@@ -34,10 +35,9 @@ public class OrderService {
     private final ProductRepository productRepository;
     private final CustomMapper customMapper;
     private final SessionUser sessionUser;
-    private final CustomUserDetailsService customUserDetailsService;
 
     public ResponseEntity<@NonNull List<OrderResponseDto>> findAll() {
-        List<OrderResponseDto> list = customMapper.toListOrderDto(orderRepository.findAll());
+        List<OrderResponseDto> list = customMapper.toListOrderDto(orderRepository.findAllOrders());
         if (list.isEmpty())
             throw new OrderNotFoundException("Order not found");
 
@@ -67,6 +67,7 @@ public class OrderService {
                 .body(dto);
     }
 
+    @Transactional
     public ResponseEntity<@NonNull Long> create(OrderRequestDto dto) {
 
         List<OrderItems> orderItemsList = new ArrayList<>();
@@ -108,6 +109,7 @@ public class OrderService {
         return ResponseEntity.status(HttpStatus.CREATED).body(order.getId());
     }
 
+    @Transactional
     public void update(Long id, String status) {
         Order order = orderRepository
                 .findById(id).orElseThrow(() -> new OrderNotFoundException("Item not found"));
@@ -174,6 +176,7 @@ public class OrderService {
         orderRepository.delete(order);
     }
 
+    @Transactional
     public ResponseEntity<@NonNull String> userUpdate(UserOrderUpdateDto dto, CustomUserDetails userDetails) {
 
         Order order = orderRepository

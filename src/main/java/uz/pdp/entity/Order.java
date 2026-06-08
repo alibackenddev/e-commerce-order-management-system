@@ -42,7 +42,7 @@ public class Order {
     private BigDecimal totalAmount;
 
     @OneToMany(
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             mappedBy = "order",
             cascade = CascadeType.ALL
     )
