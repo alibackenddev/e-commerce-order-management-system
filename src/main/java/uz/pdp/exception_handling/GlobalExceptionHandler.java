@@ -89,8 +89,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {
             IllegalStateException.class,
             DataIntegrityViolationException.class,
-            InSufficientStockException.class,
-            BadRequestException.class})
+            InSufficientStockException.class})
     public ResponseEntity<@NonNull ErrorDto> badRequest(HttpServletRequest req, Exception e) {
         String message = e.getMessage();
         String error_path = req.getRequestURI();

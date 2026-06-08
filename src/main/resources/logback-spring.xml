@@ -47,7 +47,7 @@
     <appender name="ErrorRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOGS_ERROR}/spring-boot-logger.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>%d %p %50.50C [%t] %m%n</Pattern>
+            <Pattern>%d %p %50.50C [%t] %m%n%throwable</Pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${LOGS_ERROR}/archived/spring-boot-logger-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
@@ -94,13 +94,14 @@
     <root level="info">
         <appender-ref ref="InfoRollingFile"/>
         <appender-ref ref="Console"/>
+        <appender-ref ref="WarnRollingFile"/>
+        <appender-ref ref="ErrorRollingFile"/>
     </root>
 
-    <logger name="uz.pdp" level="warn" additivity="false">
+    <logger name="uz.pdp" level="info" additivity="false">
         <appender-ref ref="ErrorRollingFile"/>
         <appender-ref ref="TelegramBotAppender"/>
         <appender-ref ref="WarnRollingFile"/>
-
     </logger>
 
 </configuration>
