@@ -32,7 +32,7 @@ public class ProductService {
     private final CustomMapper customMapper;
     private final ProductRepository productRepository;
 
-    public PageResponseDto2/*Page<@NonNull ProductResponseDto>*/ findAll(Integer page, Integer size) {
+    public PageResponseDto2/*Page<@NonNull ProductResponseDto>*/ findAll1(Integer page, Integer size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<@NonNull Product> all = productRepository.findAll(pageRequest);
         return PageResponseDto2
@@ -41,7 +41,7 @@ public class ProductService {
                 .build();
     }
 
-    public PageResponseDto findAll22(Integer page, Integer size) {
+    public PageResponseDto findAll2(Integer page, Integer size) {
         Sort sort = Sort.by(Sort.Order.by("id"), Sort.Order.desc("name"));
         PageRequest pageRequest = PageRequest.of(page, size, sort);
 
@@ -50,7 +50,7 @@ public class ProductService {
         return customMapper.toResponse(all);
     }
 
-    public Page<@NonNull ProductResponseDto> findAll2(Pageable pageable) {
+    public Page<@NonNull ProductResponseDto> findAll3(Pageable pageable) {
         Page<@NonNull Product> all = productRepository.findAll(pageable);
         return all.map(customMapper::toProductDto);
     }

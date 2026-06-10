@@ -13,6 +13,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
@@ -84,7 +85,7 @@ public class ProductController {
 
     })
     @GetMapping("")
-    public ResponseEntity<@NonNull PageResponseDto2> findAll(
+    public ResponseEntity<@NonNull PageResponseDto2> findAll1(
             @RequestParam(name = "pageNumber", required = false, defaultValue = "0")
             @Min(value = 0)
             Integer page,
@@ -93,7 +94,7 @@ public class ProductController {
             Integer size) {
         return ResponseEntity
                 .ok()
-                .body(productService.findAll(page, size));
+                .body(productService.findAll1(page, size));
     }
 
 
@@ -136,7 +137,7 @@ public class ProductController {
 
     })
     @GetMapping("/all")
-    public ResponseEntity<@NonNull PageResponseDto> findAll22(
+    public ResponseEntity<@NonNull PageResponseDto> findAll2(
             @RequestParam(name = "pageNumber", required = false, defaultValue = "0")
             @Min(value = 0)
             Integer page,
@@ -145,7 +146,7 @@ public class ProductController {
             Integer size) {
         return ResponseEntity
                 .ok()
-                .body(productService.findAll22(page, size));
+                .body(productService.findAll2(page, size));
     }
 
     @Operation(
@@ -188,12 +189,13 @@ public class ProductController {
 
     })
     @GetMapping("/get-all")
-    public ResponseEntity<@NonNull Page<@NonNull ProductResponseDto>> findAll2(
+    public ResponseEntity<@NonNull Page<@NonNull ProductResponseDto>> findAll3(
+            @ParameterObject
             @PageableDefault(page = 0, size = 10, sort = {"id", "name"})
             Pageable pageable) {
         return ResponseEntity
                 .ok()
-                .body(productService.findAll2(pageable));
+                .body(productService.findAll3(pageable));
     }
 
 
