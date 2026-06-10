@@ -29,6 +29,7 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -140,6 +141,7 @@ public class OrderService {
         orderRepository.save(order);
     }
 
+    @Transactional
     public void delete(Long id) {
         Order order = orderRepository
                 .findById(id)
@@ -166,6 +168,7 @@ public class OrderService {
 
     }
 
+    @Transactional
     public void deleteBelongUser(Long id, CustomUserDetails userDetails) {
         Order order = orderRepository
                 .findByUserNameAndOrderId(userDetails.getUsername(), id)

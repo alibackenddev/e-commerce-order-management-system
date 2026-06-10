@@ -1,8 +1,6 @@
 package uz.pdp.service;
 
-
-
-import org.apache.coyote.BadRequestException;
+import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uz.pdp.controller.ProductSpecification;
 import uz.pdp.dto.page_dto.PageResponseDto;
 import uz.pdp.dto.page_dto.PageResponseDto2;
@@ -26,16 +25,12 @@ import uz.pdp.repository.ProductRepository;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ProductService {
-
 
     private final CustomMapper customMapper;
     private final ProductRepository productRepository;
-
-    public ProductService(CustomMapper customMapper, ProductRepository productRepository) {
-        this.customMapper = customMapper;
-        this.productRepository = productRepository;
-    }
 
     public PageResponseDto2/*Page<@NonNull ProductResponseDto>*/ findAll(Integer page, Integer size) {
         PageRequest pageRequest = PageRequest.of(page, size);
@@ -68,11 +63,13 @@ public class ProductService {
         return ResponseEntity.ok(customMapper.toProductDto(product));
     }
 
+    @Transactional
     public ResponseEntity<@NonNull Long> create(ProductRequestDto dto) {
         Product product = customMapper.toEntity(dto);
         return ResponseEntity.ok().body(productRepository.save(product).getId());
     }
 
+    @Transactional
     public ResponseEntity<@NonNull Long> update(Long id, ProductRequestDto dto) {
         Product product = productRepository
                 .findById(id)
@@ -86,6 +83,7 @@ public class ProductService {
         return ResponseEntity.ok(product.getId());
     }
 
+    @Transactional
     public ResponseEntity<@NonNull String> delete(Long id) {
         Product product = productRepository
                 .findById(id)
